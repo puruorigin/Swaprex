@@ -1,6 +1,5 @@
 {
   "name": "swaprex",
-  "homepage": "http://gowebdesign.in/swaprex_r",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
