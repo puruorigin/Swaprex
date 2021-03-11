@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import OwlCarousel from 'react-owl-carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
-
+import { BrowserRouter as Router,  Link } from 'react-router-dom'
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -17,10 +15,8 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-
                 <div className="container">
                     <Header></Header>
-
                     {/*=========================== banner part ====================*/}
                     <section className="secbody">
                         <div className="row">
@@ -36,20 +32,22 @@ that allows users to deploy crypto and NFT farms with no code required!
                                         </h2>
                                     </div>
                                 </div>
+                                <Router>
                                 <div className="social_" style={{ marginTop: 30 }}>
-                                    <a href="#" className="socialink text-primary"> <i className="fa fa-paper-plane" aria-hidden="true" /></a>
-                                    <a href="#" className="socialink text-primary"><i className="fa fa-twitter" aria-hidden="true" /></a>
-                                    <a href="#" className="socialink text-primary"><i className="fa fa-facebook" aria-hidden="true" /></a>
+                                    <Link to="#" className="socialink text-primary"> <i className="fa fa-paper-plane" aria-hidden="true" /></Link>
+                                    <Link to="#" className="socialink text-primary"><i className="fa fa-twitter" aria-hidden="true" /></Link>
+                                    <Link to="#" className="socialink text-primary"><i className="fa fa-facebook" aria-hidden="true" /></Link>
                                 </div>
                                 <div className="social_ mt-4">
-                                    <a className="btn btn_started" href="#">Launch App</a>
-                                    <a className="btn btn_started" href="#">Forum</a>
-                                    <a className="btn btn_started" href="#">Read Docs</a>
+                                    <Link className="btn btn_started" to="#">Launch App</Link>
+                                    <Link className="btn btn_started" to="#">Forum</Link>
+                                    <Link className="btn btn_started" to="#">Read Docs</Link>
                                 </div>
                                 <div className="social_ mt-4">
                                     <input className="input_mail" type="email" placeholder="your email address" name />
-                                    <a className="btn nav_btn" href="#">subscribe</a>
+                                    <Link className="btn nav_btn" to="#">subscribe</Link>
                                 </div>
+                            </Router>
                             </div>
                             <div class="col-md-4 col-xs-12">
                                 <div class="banner_img">
