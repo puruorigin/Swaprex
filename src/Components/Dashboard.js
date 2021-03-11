@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import OwlCarousel from 'react-owl-carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
-
 
 class Dashboard extends Component {
     componentDidMount() {
