@@ -5,10 +5,10 @@ import OwlCarousel from 'react-owl-carousel';
 
 class Dashboard extends Component {
     componentDidMount() {
-        const script = document.createElement("script");
-        script.src = "/Asssets/js/owl.js"
-        script.async = true;
-        document.body.appendChild(script)
+        // const script = document.createElement("script");
+        // script.src = "/Asssets/js/owl.js"
+        // script.async = true;
+        // document.body.appendChild(script)
     }
 
     render() {
@@ -25,9 +25,11 @@ class Dashboard extends Component {
                                 <div className="banner txt">
                                     <div className="banner_descrp">
                                         <h2>
-                                            Swaprex is a <span className="para_det">cross-chain DeFi protocol</span><br />
+                                        Swaprex is a cross-chain DeFi protocol
+that allows users to deploy crypto and NFT farms with no code required!
+                                            {/* Swaprex is a <span className="para_det">cross-chain DeFi protocol</span><br />
                 that allows users to <span className="para_det"> deploy crypto and NFT farms
-                  with no code required! </span>
+                  with no code required! </span> */}
                                         </h2>
                                     </div>
                                 </div>
