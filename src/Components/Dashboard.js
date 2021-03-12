@@ -18,6 +18,7 @@ class Dashboard extends Component {
             roadMap:[],
             owlCImg:[],
             ques:[],
+            titleHead:[],
             showHide:true,
             EmailRegex :  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
@@ -32,18 +33,28 @@ class Dashboard extends Component {
         this.getServices();
         this.getRoadMap();
         this.getFaq();
+        this.getHeader();
     }
 
-
+    getHeader =()=>{
+        let url= `${AppConfig.AppUrl}header`
+        fetch(url).then((resp) => resp.json()).then((res) => {
+            console.log(res.data[0].title,"hello")
+            this.setState({
+                titleHead:res.data
+            })
+        })
+    }
     getSomthing = () => {
         let url = `${AppConfig.AppUrl}feature`
         fetch(url).then((resp) => resp.json()).then((res) => {
-            // console.log(res.data,"asdada")
+            // console.log(res.data,"asdada==============")
             this.setState({
                 features: res.data
             })
         })
     }
+    
 
     getServices = () => {
         let url = `${AppConfig.AppUrl}services`
@@ -147,12 +158,12 @@ class Dashboard extends Component {
                             <div className="col-md-12 col-xs-12">
                                 <div className="banner txt">
                                     <div className="banner_descrp">
+                                    {this.state.titleHead.map((item,index) => (
                                         <h2>
-                                        Swaprex is a cross-chain DeFi protocolthat allows users to deploy crypto and NFT farms with no code required!
-                                            {/* Swaprex is a <span className="para_det">cross-chain DeFi protocol</span><br />
-                that allows users to <span className="para_det"> deploy crypto and NFT farms
-                  with no code required! </span> */}
+                                        {item.title}
                                         </h2>
+                                    )
+                                    )}
                                     </div>
                                 </div>
                                 <Router>
@@ -301,7 +312,6 @@ class Dashboard extends Component {
                             <div id="accordion">
                             {this.state.ques.map((item, index) => (
                             <div key={item.id} className="card">
-                                {console.log(item,"<-===-----=====")}
                                 <div className="card-header" id="headingOne">
                                     <h5 className="mb-0 miku">
                                         <button onClick={() => this.hideAndSeek(item)} className="btn faq_btn btn-link"  aria-expanded="true" aria-controls="collapseOne">
