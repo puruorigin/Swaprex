@@ -1,4 +1,4 @@
-var urlString = "";
+var urlString = "https://gowebdesign.in/swaprexadmin/app/";
 
 const GetApiCall = {
   getRequest(url) {
@@ -22,3 +22,5 @@ const GetApiCall = {
   });
   },
 };
+
+export default GetApiCall;
