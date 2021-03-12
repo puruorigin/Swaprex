@@ -18,6 +18,7 @@ class Dashboard extends Component {
             roadMap:[],
             owlCImg:[],
             ques:[],
+            showHide:true,
             EmailRegex :  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
     }
@@ -67,6 +68,10 @@ class Dashboard extends Component {
         let url = `${AppConfig.AppUrl}faq`
         fetch(url).then((resp) => resp.json()).then((res) => {
             // console.log(res.data,"<------------------")
+            res.data.forEach(a => {
+                a.check = false
+            });
+            // console.log(res.data,"asd")
             this.setState({
                 ques:res.data
             })
@@ -98,6 +103,37 @@ class Dashboard extends Component {
             })
         }else{Notiflix.Notify.Failure('Please enter correct email')}
     }
+
+
+    hideAndSeek = (item) => {
+        const {showHide} = this.state
+        this.setState({
+            showHide: !showHide
+        })
+        // console.log(this.state.showHide,"checkssssss")
+        const {ques} = this.state;
+        // console.log(services,"all services")
+        // console.log(item,"<[-[[[[[[]====")
+        if(showHide){
+            ques.forEach(a => {
+                if(item.id == a.id) {
+                    a.check = true
+                } else {
+                    a.check = false
+                }
+            })
+            this.setState({
+                ques: ques
+            })
+        } else {
+            ques.forEach(a => {
+                    a.check = false
+            })
+            this.setState({
+                ques: ques
+            })
+        }
+    }
     
 
     render() {
@@ -112,8 +148,7 @@ class Dashboard extends Component {
                                 <div className="banner txt">
                                     <div className="banner_descrp">
                                         <h2>
-                                        Swaprex is a cross-chain DeFi protocol
-that allows users to deploy crypto and NFT farms with no code required!
+                                        Swaprex is a cross-chain DeFi protocolthat allows users to deploy crypto and NFT farms with no code required!
                                             {/* Swaprex is a <span className="para_det">cross-chain DeFi protocol</span><br />
                 that allows users to <span className="para_det"> deploy crypto and NFT farms
                   with no code required! </span> */}
@@ -136,7 +171,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                                     value={this.state.subsc}
                                     onChange={this.handleInputChange}
                                     name />
-                                    <button onClick={this.subscrib} className="btn nav_btn">subscribe</button>
+                                    <button onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
                                 </div>
                             </Router>
                             </div>
@@ -153,9 +188,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>
-                                        Our Features
-            </h1>
+                                    <h1>Our Features</h1>
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                 </div>
                             </div>
@@ -176,7 +209,6 @@ that allows users to deploy crypto and NFT farms with no code required!
                                 </div>
                                 ))}
                             </div>
-                            
                         </section>
                     </section>
                     {/*============================== our services end =================================*/}
@@ -185,9 +217,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>
-                                        What Can Suprex Do ?
-            </h1>
+                                    <h1>What Can Suprex Do ?</h1>
                                 </div>
                             </div>
                         </div>
@@ -220,9 +250,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>
-                                        Roadmap
-            </h1>
+                                    <h1>Roadmap</h1>
                                     <p>Our milestones we are going towards rapidly to achieve that</p>
                                 </div>
                             </div>
@@ -258,7 +286,6 @@ that allows users to deploy crypto and NFT farms with no code required!
                                     </div>
                                     ))}
                             </OwlCarousel>
-
                         </div></section>
                     {/*=========================== road map end ==============================*/}
                     {/*================================= FAQ ===============================================*/}
@@ -266,9 +293,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>
-                                        Frequently Ask Questions
-            </h1>
+                                    <h1>Frequently Ask Questions</h1>
                                 </div>
                             </div>
                         </div>
@@ -276,22 +301,26 @@ that allows users to deploy crypto and NFT farms with no code required!
                             <div id="accordion">
                             {this.state.ques.map((item, index) => (
                             <div key={item.id} className="card">
+                                {console.log(item,"<-===-----=====")}
                                 <div className="card-header" id="headingOne">
-                                    <h5 className="mb-0">
-                                        <button className="btn faq_btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <h5 className="mb-0 miku">
+                                        <button onClick={() => this.hideAndSeek(item)} className="btn faq_btn btn-link"  aria-expanded="true" aria-controls="collapseOne">
                                             {item.title}
-            </button>
+                                        </button>
                                     </h5>
                                 </div>
+                                {item.check == false && (
+                                    <div></div>
+                                )}
+                                {item.check == true && (
                                 <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div className="card-body para_">
                                        {item.description}
-          </div>
+                                    </div>
                                 </div>
+                                )}
                             </div>
-
                             ))}
-
                             {/* <div className="card">
                                 <div className="card-header" id="headingTwo">
                                     <h5 className="mb-0">
@@ -329,9 +358,7 @@ that allows users to deploy crypto and NFT farms with no code required!
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>
-                                        Our Partner &amp; Supporters
-            </h1>
+                                    <h1>Our Partner &amp; Supporters</h1>
                                 </div>
                             </div>
                             <div>
@@ -340,13 +367,9 @@ that allows users to deploy crypto and NFT farms with no code required!
                         </div>
                     </section>
                     {/*=================== our partner end ===========================*/}
-
                 </div>
                 <Footer></Footer>
-
-
             </div>
-
         );
     }
 }
