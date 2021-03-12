@@ -121,10 +121,7 @@ class Dashboard extends Component {
         this.setState({
             showHide: !showHide
         })
-        // console.log(this.state.showHide,"checkssssss")
         const {ques} = this.state;
-        // console.log(services,"all services")
-        // console.log(item,"<[-[[[[[[]====")
         if(showHide){
             ques.forEach(a => {
                 if(item.id == a.id) {
