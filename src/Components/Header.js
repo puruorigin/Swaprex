@@ -1,12 +1,34 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { AppConfig } from '../Config/AppConfig'
 
 class Header extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            menuList:[]
+        }
+    }
+
+    componentDidMount = () =>{
+        this.getMenu();
+    }
+
+    getMenu = () => {
+        let url = `${AppConfig.AppUrl}menu`
+        fetch(url).then((resp) => resp.json()).then((res) => {
+            // console.log(res.data,"Menu res")
+            this.setState({
+                menuList:res.data
+            })
+        })
+    }
+
     render() {
         return (
             <div>
-
-
                 {/*===================== navbar =========================*/}
                 <div className="row">
                     <div className="col-md-12">
@@ -18,10 +40,12 @@ class Header extends Component {
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item active">
-                                            <Link className="nav-link" href="#">Home</Link>
-                                        </li>
+                                        {this.state.menuList.map((item, index) => (
                                         <li className="nav-item ">
+                                            <Link className="nav-link" onClick={() =>  window.open(item.menu_url)}>{item.menu_title}</Link>
+                                        </li>
+                                        ))}
+                                        {/* <li className="nav-item ">
                                             <Link className="nav-link" href="#">News</Link>
                                         </li>
                                         <li className="nav-item">
@@ -29,10 +53,7 @@ class Header extends Component {
                                         </li>
                                         <li className="nav-item">
                                             <Link className="nav-link" href="#">Contact Us</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link btn nav_btn ml-5" href="#">Install</Link>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
                             </nav>
