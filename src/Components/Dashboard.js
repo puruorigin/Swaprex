@@ -35,12 +35,12 @@ class Dashboard extends Component {
         // script.src = "/Asssets/js/owl.js"
         // script.async = true;
         // document.body.appendChild(script)
+        this.getRoadMap()
+        this.getOurPartner();
         this.getSomthing();
         this.getServices();
-        this.getRoadMap();
         this.getFaq();
         this.getHeader();
-        this.getOurPartner();
     }
 
     getHeader = () => {
@@ -54,7 +54,7 @@ class Dashboard extends Component {
     getSomthing = () => {
         let url = `${AppConfig.AppUrl}feature`
         fetch(url).then((resp) => resp.json()).then((res) => {
-            // console.log(res.data,"asdada==============")
+            // console.log(res.data,"asdada===========")
             this.setState({
                 features: res.data
             })
@@ -76,7 +76,7 @@ class Dashboard extends Component {
             // console.log(res.data,"asdasd")
             this.setState({
                 roadMap: res.data
-            }, () => this.getOurPartner())
+            })
         })
     }
 
