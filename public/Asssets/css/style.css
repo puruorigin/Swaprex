@@ -23,6 +23,14 @@
 .navbar-nav {
     text-align: center;
 }
+
+.menuBlink {
+    font-size: 16.5px;
+    text-transform: uppercase;
+}
+.menuBlink:hover{
+    color: #8b8949;
+}
 /*===========================nav end============================================*/
 
 /*======================banner start======================*/
@@ -417,6 +425,8 @@ color: #76767a;
     /* height: 300px;
     width: 200px; */
 }
+
+
 
 /*=======================footer==========================*/
 

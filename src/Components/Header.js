@@ -42,7 +42,7 @@ class Header extends Component {
                                     <ul className="navbar-nav ml-auto">
                                         {this.state.menuList.map((item, index) => (
                                         <li className="nav-item ">
-                                            <Link className="nav-link" onClick={() =>  window.open(item.menu_url)}>{item.menu_title}</Link>
+                                            <Link className="nav-link" onClick={() =>  window.open(item.menu_url)}><h3 className="menuBlink">{item.menu_title}</h3></Link>
                                         </li>
                                         ))}
                                         {/* <li className="nav-item ">
