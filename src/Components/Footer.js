@@ -1,6 +1,29 @@
 import React, { Component } from 'react';
+import {AppConfig} from '../Config/AppConfig'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 class Footer extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            socialLink:[]
+        }
+    }
+
+    componentDidMount(){
+        this.getSocialLink();
+    }
+
+    getSocialLink = () => {
+        let url = `${AppConfig.AppUrl}sociallink`
+        fetch(url).then((res) => res.json()).then((resp) =>{
+            console.log(resp.data)
+            this.setState({
+                socialLink:resp.data
+            })
+        })
+    }
+
     render() {
         return (
             <div>
@@ -14,9 +37,11 @@ class Footer extends Component {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="foter_middle">
-                                        <a className="text-white after_line" href>Twitter </a>
-                                        <a className="text-white after_line" href>Telegram</a>
-                                        <a className="text-white" href>Medium</a>
+                                        <Router>
+                                        {this.state.socialLink.map((item, index) =>(
+                                        <Link onClick={() => window.open(item.url)} className="text-white after_line" href>{item.title} </Link>
+                                        ))}
+                                        </Router>
                                     </div>
                                 </div>
                                 <div className="col-md-4">

@@ -24,8 +24,10 @@ class Dashboard extends Component {
             ques: [],
             OurPartner:[],
             titleHead: [],
+            buttonLink:[],
             showHide: true,
             imagesP:[],
+            socialLink:[],
             EmailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
     }
@@ -35,9 +37,12 @@ class Dashboard extends Component {
         // script.src = "/Asssets/js/owl.js"
         // script.async = true;
         // document.body.appendChild(script)
+        this.getRoadMap()
+        this.getOurPartner();
+        this.getHeader();
+        this.getButtonLink();
         this.getSomthing();
         this.getServices();
-        this.getRoadMap();
         this.getFaq();
         this.getHeader();
         this.getOurPartner();
@@ -51,10 +56,30 @@ class Dashboard extends Component {
             })
         })
     }
+
+    // getSocialLink = () => {
+    //     let url = `${AppConfig.AppUrl}sociallink`
+    //     fetch(url).then((res) => res.json()).then((res) =>{
+    //         this.setState({
+    //             socialLink:res.data
+    //         })
+    //     })
+    // }
+
+    getButtonLink = () => {
+        let url = `${AppConfig.AppUrl}buttonlink`
+        fetch(url).then((res) => res.json()).then((resp) => {
+            // console.log(resp.data,"<--=====")
+            this.setState({
+                buttonLink: resp.data
+            })
+        })
+    }
+
     getSomthing = () => {
         let url = `${AppConfig.AppUrl}feature`
         fetch(url).then((resp) => resp.json()).then((res) => {
-            // console.log(res.data,"asdada==============")
+            // console.log(res.data,"asdada===========")
             this.setState({
                 features: res.data
             })
@@ -123,13 +148,13 @@ class Dashboard extends Component {
     getOurPartner = () =>{
         let url = `${AppConfig.AppUrl}client`
         fetch(url).then((res) => res.json()).then((resp)=> {
-            console.log(resp.data,"<====== our partner")
+            // console.log(resp.data,"<====== our partner")
             let arr=[]
             resp.data.forEach(a =>{
-                console.log(a.image,"<====================")
+                // console.log(a.image,"<====================")
                 arr.push({url:a.image})
             })
-            console.log(arr,"<===-----------")
+            // console.log(arr,"<===-----------")
             this.setState({
                 imagesP:arr,
                 OurPartner:resp.data
@@ -138,7 +163,7 @@ class Dashboard extends Component {
         })
     }
 
-    hideAndSeek = (item) => {
+    hideAndSeek = async(item) => {
         const { showHide } = this.state
         this.setState({
             showHide: !showHide
@@ -191,9 +216,11 @@ class Dashboard extends Component {
                                         <Link to="#" className="socialink text-primary"><i className="fa fa-facebook" aria-hidden="true" /></Link>
                                     </div>
                                     <div className="social_ mt-4">
-                                        <Link className="btn btn_started" to="#">Launch App</Link>
-                                        <Link className="btn btn_started" to="#">Forum</Link>
-                                        <Link className="btn btn_started" to="#">Read Docs</Link>
+                                        {this.state.buttonLink.map((item, index) => (
+                                            <Link className="btn btn_started" onClick={() => window.open(item.menu_url)}>{item.menu_title}</Link>
+                                        ))}
+                                        {/* <Link className="btn btn_started" to="#">Forum</Link>
+                                        <Link className="btn btn_started" to="#">Read Docs</Link> */}
                                     </div>
                                     <div className="social_ mt-4">
                                         <input className="input_mail" type="email" placeholder="your email address"
@@ -391,6 +418,7 @@ class Dashboard extends Component {
                     </section>
                     {/*====================================== FAQ end ======================================*/}
                     {/*============================ our partner===================================  */}
+                    {/*=================== our partner end ===========================*/}
                     <section className="secbody">
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
@@ -398,29 +426,30 @@ class Dashboard extends Component {
                                     <h1>Our Partner &amp; Supporters</h1>
                                 </div>
                             </div>
-                            <div className="row text-center">
+                        </div>
+                    </section>
+                </div>
+                <div className="col-md-12 col-xs-12 d-flex justify-content-center">
                             <OwlCarousel  responsive={{
-                                0: { items: 2 },
-                                400: { items: 2 },
-                                599: { items: 3 },
+                                0: { items: 1 },
+                                400: { items: 1 },
+                                599: { items: 2 },
                                 1024: { items: 4 },
                                 1170: { items: 4 }
-                            }} >
+                            }} loop>
                                 {this.state.OurPartner.map((item, index) => (
                                     <div className="roadmap-timeline-list alt">
-                                        <div className="rm-infos" style={{width:300}}>
+                                        <div className="rm-infos" style={{width:300, height:150}}>
                                             <div className="img_txt">
-                                                <img style={{width:300}} src={item.image} class="img-fluid" />
+                                                <Router>
+                                               <Link onClick={() =>  window.open(item.url)}> <img style={{width:'100%'}} src={item.image} class="img-fluid" /> </Link>
+                                                </Router>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
                             </OwlCarousel>
                         </div>
-                        </div>
-                    </section>
-                    {/*=================== our partner end ===========================*/}
-                </div>
                 <Footer></Footer>
             </div>
         );
