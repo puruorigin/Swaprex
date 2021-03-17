@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
 import {AppConfig} from '../Config/AppConfig'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import AboutUs from './AboutUs';
+import Dashboard from './Dashboard';
 
 class Footer extends Component {
     constructor(props){
         super(props);
         this.state={
-            socialLink:[]
+            socialLink:[],
+            aboutUsP:[]
         }
     }
 
     componentDidMount(){
         this.getSocialLink();
+        this.getAboutPage();
     }
 
     getSocialLink = () => {
         let url = `${AppConfig.AppUrl}sociallink`
         fetch(url).then((res) => res.json()).then((resp) =>{
-            console.log(resp.data)
+            // console.log(resp.data)
             this.setState({
                 socialLink:resp.data
             })
         })
+    }
+
+    getAboutPage = () => {
+        let url = `${AppConfig.AppUrl}footerpages`
+        fetch(url).then((res) => res.json()).then((resp) => {
+            // console.log(resp.data,"<===")
+            this.setState({
+                aboutUsP: resp.data
+            })
+        })
+    }
+
+    handlePage = (item) => {
+        console.log(item,"<=======")
     }
 
     render() {
@@ -37,17 +55,18 @@ class Footer extends Component {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="foter_middle">
-                                        <Router>
                                         {this.state.socialLink.map((item, index) =>(
                                         <Link onClick={() => window.open(item.url)} className="text-white after_line" href>{item.title} </Link>
                                         ))}
-                                        </Router>
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <div className="foter_rigt ">
-                                        <a className="text-white" href>Privacy Policy </a>
-                                        <a className="text-white" href>Terms &amp; Conditions</a>
+                                    <div className="foter_rigt d-flex ">
+                                {this.state.aboutUsP.map((item, index) => (
+                                        <p onClick={() => this.handlePage(item)} className="text-white after_line">{item.title}</p>
+                                            ))}
+                                        {/* <a className="text-white" href>Terms &amp; Conditions</a>
+                                        <a className="text-white" href>Terms &amp; Conditions</a> */}
                                     </div>
                                 </div>
                             </div>

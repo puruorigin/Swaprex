@@ -431,13 +431,19 @@ color: #76767a;
 /*=======================footer==========================*/
 
 .foter_rigt {
-    text-align: center;
+    justify-content: center;
 }
 .foter_middle{
    text-align: center;
 }
 .foter_txt{text-align: center;}
 .after_line::after{
+    border-left: 1px solid;
+    content: "";
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.after_line::before{
     border-left: 1px solid;
     content: "";
     margin-left: 10px;
