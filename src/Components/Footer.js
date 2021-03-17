@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {AppConfig} from '../Config/AppConfig'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch, history } from 'react-router-dom'
 import AboutUs from './AboutUs';
 import Dashboard from './Dashboard';
 
@@ -31,7 +31,7 @@ class Footer extends Component {
     getAboutPage = () => {
         let url = `${AppConfig.AppUrl}footerpages`
         fetch(url).then((res) => res.json()).then((resp) => {
-            // console.log(resp.data,"<===")
+            console.log(resp.data,"<===")
             this.setState({
                 aboutUsP: resp.data
             })
@@ -39,7 +39,7 @@ class Footer extends Component {
     }
 
     handlePage = (item) => {
-        console.log(item,"<=======")
+     <Link to={{pathname:'/AboutUs', state: item}} />
     }
 
     render() {
@@ -63,7 +63,8 @@ class Footer extends Component {
                                 <div className="col-md-4">
                                     <div className="foter_rigt d-flex ">
                                 {this.state.aboutUsP.map((item, index) => (
-                                        <p onClick={() => this.handlePage(item)} className="text-white after_line">{item.title}</p>
+                                        // <p onClick={() => this.handlePage(item)} className="text-white after_line">{item.title}</p>
+                                        <Link className="text-white after_line" to={{ pathname:'/AboutUs', state:item }}>{item.title}</Link>
                                             ))}
                                         {/* <a className="text-white" href>Terms &amp; Conditions</a>
                                         <a className="text-white" href>Terms &amp; Conditions</a> */}
