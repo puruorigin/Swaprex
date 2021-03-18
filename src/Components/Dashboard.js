@@ -332,7 +332,7 @@ class Dashboard extends Component {
                                 {this.state.roadMap.map((item, index) => (
                                     <div className="roadmap-timeline-list alt">
                                         <div className="rm-date"><span>{item.date}</span></div>
-                                        <div className="rm-infos" style={{height:300}}>
+                                        <div className="rm-infos" >
                                             {/* <div className="img_txt">
                                                 <img style={{ height: 200 }} src={item.image} class="img-fluid" />
                                             </div> */}
@@ -458,5 +458,3 @@ class Dashboard extends Component {
 
 
 export default Dashboard;
-
-// "react-owl-carousel": "^2.3.3",
