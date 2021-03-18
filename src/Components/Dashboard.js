@@ -456,9 +456,11 @@ class Dashboard extends Component {
                         </div>
                 <Footer></Footer>
             </div>
+            
         );
     }
 }
+
 
 
 export default Dashboard;
