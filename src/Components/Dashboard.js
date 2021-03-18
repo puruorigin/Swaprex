@@ -278,7 +278,7 @@ class Dashboard extends Component {
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
-                                    <h1>What Can Suprex Do ?</h1>
+                                    <h1>What Can Swaprex Do ?</h1>
                                 </div>
                             </div>
                         </div>
@@ -288,10 +288,14 @@ class Dashboard extends Component {
                                     <div className="col-sm-6 mt-3">
                                         <div className="row">
                                                     {item.image == null && (
-                                                        <div></div>
+                                                        <div className="col-sm-2">
+                                                        <div className="icon_fa">
+                                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                                        </div>
+                                                        </div>
                                                     )}
                                                     {item.image != null && (
-                                            <div className="col-sm-6">
+                                            <div className="col-sm-2">
                                                 <div className="img_txt">
                                                 <img style={{ height: 280 }} class="img-fluid" src={item.image} />
                                                 </div>
@@ -333,9 +337,9 @@ class Dashboard extends Component {
                                     <div className="roadmap-timeline-list alt">
                                         <div className="rm-date"><span>{item.date}</span></div>
                                         <div className="rm-infos" >
-                                            {/* <div className="img_txt">
-                                                <img style={{ height: 200 }} src={item.image} class="img-fluid" />
-                                            </div> */}
+                                            <div className="img_txt mb-3">
+                                            <i class="fa fa-bolt" aria-hidden="true"></i>
+                                            </div>
                                             <div className="rm-heading">
                                                 <h4>{item.title}</h4>
                                             </div>

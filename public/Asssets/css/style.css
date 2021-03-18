@@ -35,7 +35,7 @@
 
 /*======================banner start======================*/
 .secbody{
-    padding-top: 6rem;
+    padding-top: 5rem;
 }
 .banner_descrp {
     text-align: center;
@@ -128,15 +128,18 @@ span.para_det {
 /*====================our services end=====================================*/
 /*=====================what can i do start================================ */
 .circle_box_title p {
-    color: #76767a;
-    font-size: 18px;
-    text-align: justify;
-    letter-spacing: 1px;
-}
+        color: #76767a;
+        font-size: 16px;
+        word-spacing: 1px;
+    }
 .img_txt h1 {
     font-size: 124px;
     text-align: center;
     color: #7d7676;
+}
+.icon_fa i {
+    font-size: 30px;
+    float: right;
 }
 /*======================what can i do end================================*/
 
@@ -318,8 +321,8 @@ span.para_det {
 }
 .rm-heading h4 {
     font-size: 17px;
-    text-align: justify;
-    font-weight: 600;
+    text-align: center;
+    font-weight: 700;
 }
 .rm-details p {
     text-align: justify;
@@ -390,7 +393,9 @@ button.owl-prev i{
      color: cornflowerblue;
     font-size: 35px;
 }
-
+.img_txt i {
+    font-size: 25px;
+}
 /*====================road map end=====================================*/
 /*============faq========================*/
 #headingOne {
@@ -434,9 +439,9 @@ color: #76767a;
     justify-content: center;
 }
 .foter_middle{
-   text-align: center;
+   text-align: end;
 }
-.foter_txt{text-align: center;}
+.foter_txt{text-align: initial;}
 .after_line::after{
     border-left: 1px solid;
     content: "";
