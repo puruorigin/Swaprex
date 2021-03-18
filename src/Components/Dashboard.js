@@ -8,8 +8,9 @@ import Notiflix from 'notiflix';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import Carousel from 'react-elastic-carousel';
+import moment from 'moment'
 import SimpleImageSlider from "react-simple-image-slider";
+import Mailchimp from 'react-mailchimp-form'
 
 class Dashboard extends Component {
 
@@ -22,12 +23,13 @@ class Dashboard extends Component {
             roadMap: [],
             owlCImg: [],
             ques: [],
-            OurPartner:[],
+            OurPartner: [],
             titleHead: [],
-            buttonLink:[],
+            buttonLink: [],
             showHide: true,
-            imagesP:[],
-            socialLink:[],
+            imagesP: [],
+            socialLink: [],
+            sharing:[],
             EmailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
     }
@@ -46,6 +48,7 @@ class Dashboard extends Component {
         this.getFaq();
         this.getHeader();
         this.getOurPartner();
+        this.getSocialLink();
     }
 
     getHeader = () => {
@@ -57,14 +60,15 @@ class Dashboard extends Component {
         })
     }
 
-    // getSocialLink = () => {
-    //     let url = `${AppConfig.AppUrl}sociallink`
-    //     fetch(url).then((res) => res.json()).then((res) =>{
-    //         this.setState({
-    //             socialLink:res.data
-    //         })
-    //     })
-    // }
+    getSocialLink = () => {
+        let url = `${AppConfig.AppUrl}sharing`
+        fetch(url).then((res) => res.json()).then((res) =>{
+            console.log(res,"<social link")
+            this.setState({
+                sharing:res.data
+            })
+        })
+    }
 
     getButtonLink = () => {
         let url = `${AppConfig.AppUrl}buttonlink`
@@ -89,6 +93,7 @@ class Dashboard extends Component {
     getServices = () => {
         let url = `${AppConfig.AppUrl}services`
         fetch(url).then((res) => res.json()).then((resp) => {
+            console.log(resp,"services=========")
             this.setState({
                 services: resp.data
             })
@@ -134,36 +139,36 @@ class Dashboard extends Component {
         })
     }
 
-    subscrib = () => {
-        const { subsc } = this.state;
-        if (this.state.EmailRegex.test(subsc)) {
-            let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
-            fetch(url).then((res) => res.json()).then((resp) => {
-                Notiflix.Notify.Success(resp.message)
-                window.location.reload()
-            })
-        } else { Notiflix.Notify.Failure('Please enter correct email') }
-    }
+    // subscrib = () => {
+    //     const { subsc } = this.state;
+    //     if (this.state.EmailRegex.test(subsc)) {
+    //         let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
+    //         fetch(url).then((res) => res.json()).then((resp) => {
+    //             Notiflix.Notify.Success(resp.message)
+    //             window.location.reload()
+    //         })
+    //     } else { Notiflix.Notify.Failure('Please enter correct email') }
+    // }
 
-    getOurPartner = () =>{
+    getOurPartner = () => {
         let url = `${AppConfig.AppUrl}client`
-        fetch(url).then((res) => res.json()).then((resp)=> {
+        fetch(url).then((res) => res.json()).then((resp) => {
             // console.log(resp.data,"<====== our partner")
-            let arr=[]
-            resp.data.forEach(a =>{
+            let arr = []
+            resp.data.forEach(a => {
                 // console.log(a.image,"<====================")
-                arr.push({url:a.image})
+                arr.push({ url: a.image })
             })
             // console.log(arr,"<===-----------")
             this.setState({
-                imagesP:arr,
-                OurPartner:resp.data
+                imagesP: arr,
+                OurPartner: resp.data
             })
 
         })
     }
 
-    hideAndSeek = async(item) => {
+    hideAndSeek = async (item) => {
         const { showHide } = this.state
         this.setState({
             showHide: !showHide
@@ -208,26 +213,39 @@ class Dashboard extends Component {
                                             </h2>
                                         ))}
                                     </div>
+
                                 </div>
                                 <Router>
                                     <div className="social_" style={{ marginTop: 30 }}>
-                                        <Link to="#" className="socialink text-primary"> <i className="fa fa-paper-plane" aria-hidden="true" /></Link>
-                                        <Link to="#" className="socialink text-primary"><i className="fa fa-twitter" aria-hidden="true" /></Link>
-                                        <Link to="#" className="socialink text-primary"><i className="fa fa-facebook" aria-hidden="true" /></Link>
+                                        {this.state.sharing.map((item, index) =>(
+                                                <Link key={item.id} to="#" className="socialink text-primary"> <i className={`${item.logo}`} aria-hidden="true" /></Link>
+                                        ))}
                                     </div>
                                     <div className="social_ mt-4">
                                         {this.state.buttonLink.map((item, index) => (
-                                            <Link className="btn btn_started" onClick={() => window.open(item.menu_url)}>{item.menu_title}</Link>
+                                            <div>
+                                                <Link className="btn btn_started" onClick={() => window.open(item.menu_url)}>{item.menu_title}</Link>
+                                            </div>
                                         ))}
-                                        {/* <Link className="btn btn_started" to="#">Forum</Link>
-                                        <Link className="btn btn_started" to="#">Read Docs</Link> */}
                                     </div>
                                     <div className="social_ mt-4">
-                                        <input className="input_mail" type="email" placeholder="your email address"
+                                        {/* <input className="input_mail" type="email" placeholder="your email address"
                                             value={this.state.subsc}
                                             onChange={this.handleInputChange}
                                             name />
-                                        <button onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
+                                        <button onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button> */}
+
+                                        <Mailchimp className="social_mailchip mt-4"
+                                            action='https://<YOUR-USER>.us16.list-manage.com/subscribe/post?u=XXXXXXXXXXXXX&amp;id=XXXXXX'
+                                            fields={[
+                                                {
+                                                    name: 'EMAIL',
+                                                    placeholder: 'your email address',
+                                                    type: 'email',
+                                                    required: true
+                                                }
+                                            ]}
+                                        />
                                     </div>
                                 </Router>
                             </div>
@@ -245,26 +263,26 @@ class Dashboard extends Component {
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
                                     <h1>Our Features</h1>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    {/* <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> */}
                                 </div>
                             </div>
                         </div>
                         <section className="secbody">
                             <div className="row">
                                 {this.state.features.map((item, index) => (
-                                    <div className="col-md-4">
-                                        <div key={item.id} className="box" style={{height:180}}>
+                                    <div key={item.id} className="col-md-4">
+                                        <div key={item.id} className="box" style={{ height: 180 }}>
                                             {item.image == null && (
                                                 <div></div>
                                             )}
                                             {item.image != null && (
-                                            <div className="box_img">
-                                                <img style={{ height: 300 }} class="img-fluid" src={item.image} />
-                                            </div>
+                                                <div className="box_img">
+                                                    <img style={{ height: 300 }} class="img-fluid" src={item.image} />
+                                                </div>
                                             )}
                                             <div className="box_title">
-                                                <h3 style={{textAlign:'center'}}>{this.sizeText(item.title)}</h3>
-                                                <p style={{textAlign:'center'}}>{item.description}</p>
+                                                <h3 style={{ textAlign: 'center' }}>{this.sizeText(item.title)}</h3>
+                                                <p style={{ textAlign: 'center' }}>{item.description}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -283,24 +301,24 @@ class Dashboard extends Component {
                             </div>
                         </div>
                         <section className="secbody">
-                            <div className="row" style={{justifyContent:'center'}}>
+                            <div className="row" style={{ justifyContent: 'center' }}>
                                 {this.state.services.map((item, index) => (
-                                    <div className="col-sm-6 mt-3">
+                                    <div key={item.id} className="col-sm-6 mt-3">
                                         <div className="row">
-                                                    {item.image == null && (
-                                                        <div className="col-sm-2">
-                                                        <div className="icon_fa">
-                                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                                        </div>
-                                                        </div>
-                                                    )}
-                                                    {item.image != null && (
-                                            <div className="col-sm-2">
-                                                <div className="img_txt">
-                                                <img style={{ height: 280 }} class="img-fluid" src={item.image} />
+                                            {item.image == null && (
+                                                <div className="col-sm-2">
+                                                    <div className="icon_fa">
+                                                        <i class={`${item.title} text-danger`} aria-hidden="true"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                                    )}
+                                            )}
+                                            {item.image != null && (
+                                                <div className="col-sm-2">
+                                                    <div className="img_txt">
+                                                        <img style={{ height: 280 }} class="img-fluid" src={item.image} />
+                                                    </div>
+                                                </div>
+                                            )}
                                             <div className="col-sm-10">
                                                 <div className="circle_box_title">
                                                     <p>{item.description}</p>
@@ -334,11 +352,11 @@ class Dashboard extends Component {
                                 1170: { items: 4 }
                             }} className=" js_road_map" margin={10} >
                                 {this.state.roadMap.map((item, index) => (
-                                    <div className="roadmap-timeline-list alt">
-                                        <div className="rm-date"><span>{item.date}</span></div>
+                                    <div key={item.id} className="roadmap-timeline-list alt">
+                                        <div className="rm-date"><span>{moment(item.date).format('MMMM-YYYY')}</span></div>
                                         <div className="rm-infos" >
                                             <div className="img_txt mb-3">
-                                            <i class="fa fa-bolt" aria-hidden="true"></i>
+                                                <i  className={`${item.image} text-danger`} aria-hidden="true"></i>
                                             </div>
                                             <div className="rm-heading">
                                                 <h4>{item.title}</h4>
@@ -434,26 +452,26 @@ class Dashboard extends Component {
                     </section>
                 </div>
                 <div className="col-md-12 col-xs-12 d-flex justify-content-center">
-                            <OwlCarousel  responsive={{
-                                0: { items: 1 },
-                                400: { items: 1 },
-                                599: { items: 2 },
-                                1024: { items: 4 },
-                                1170: { items: 4 }
-                            }} loop>
-                                {this.state.OurPartner.map((item, index) => (
-                                    <div className="roadmap-timeline-list alt">
-                                        <div className="rm-infos" style={{width:300, height:150}}>
-                                            <div className="img_txt">
-                                                <Router>
-                                               <Link onClick={() =>  window.open(item.url)}> <img style={{width:'100%'}} src={item.image} class="img-fluid" /> </Link>
-                                                </Router>
-                                            </div>
-                                        </div>
+                    <OwlCarousel responsive={{
+                        0: { items: 1 },
+                        400: { items: 1 },
+                        599: { items: 2 },
+                        1024: { items: 4 },
+                        1170: { items: 4 }
+                    }} loop>
+                        {this.state.OurPartner.map((item, index) => (
+                            <div className="roadmap-timeline-list alt">
+                                <div className="rm-infos" style={{ width: 300, height: 150 }}>
+                                    <div className="img_txt">
+                                        <Router>
+                                            <Link onClick={() => window.open(item.url)}> <img style={{ width: '100%' }} src={item.image} class="img-fluid" /> </Link>
+                                        </Router>
                                     </div>
-                                ))}
-                            </OwlCarousel>
-                        </div>
+                                </div>
+                            </div>
+                        ))}
+                    </OwlCarousel>
+                </div>
                 <Footer></Footer>
             </div>
             

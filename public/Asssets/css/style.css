@@ -88,6 +88,33 @@ span.para_det {
     border: 1px solid #6495ed;
     letter-spacing: 1px;
 }
+.social_mailchip input {
+    font-size: 12px !important;
+    width: 200px;
+    width: 39%;
+    padding: 0 20px;
+    color: #201e1e !important;
+    background: #fafafa;
+    height: 35px;
+    border-radius: 0.375rem;
+    border: 1px solid #6495ed;
+    letter-spacing: 1px;
+}
+.social_mailchip button {
+    font-size: 12px !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 33px;
+    width: 8.75rem;
+    padding: 0 20px;
+    min-width: 100px;
+    color: #fff !important;
+    background: #6495ED;
+    height: 35px;
+    border-radius: 0.375rem;
+    border: 1px solid #fff;
+    letter-spacing: 1px;
+}
 /*============================banner end====================================*/
 
 /*========================our services start===============================*/
@@ -394,7 +421,7 @@ button.owl-prev i{
     font-size: 35px;
 }
 .img_txt i {
-    font-size: 25px;
+    font-size: 64px;
 }
 /*====================road map end=====================================*/
 /*============faq========================*/
