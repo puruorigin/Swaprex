@@ -8,6 +8,7 @@ import Routes from './Components/Routes'
 
 ReactDOM.render(
   <Router>
+    {/* <Dashboard /> */}
     <Routes />
   </Router>,
   document.getElementById('root')
