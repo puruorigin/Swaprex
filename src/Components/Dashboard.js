@@ -10,7 +10,8 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment'
 import SimpleImageSlider from "react-simple-image-slider";
-import Mailchimp from 'react-mailchimp-form'
+import Mailchimp from 'react-mailchimp-form';
+import RCG from 'react-captcha-generator';
 
 class Dashboard extends Component {
 
@@ -30,8 +31,13 @@ class Dashboard extends Component {
             imagesP: [],
             socialLink: [],
             sharing:[],
+            btnDisable:true,
+            captcha: '',
             EmailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
+        this.check = this.check.bind(this)
+        this.result = this.result.bind(this)
+        this.handleClick = this.handleClickCheck.bind(this)
     }
 
     componentDidMount() {
@@ -137,18 +143,27 @@ class Dashboard extends Component {
         this.setState({
             subsc: event.target.value
         })
+        // console.log(event.target.value,"<=====")
+        if (this.state.EmailRegex.test(event.target.value)) {
+            this.setState({
+                btnDisable: false
+            })
+        }
     }
 
-    // subscrib = () => {
-    //     const { subsc } = this.state;
-    //     if (this.state.EmailRegex.test(subsc)) {
-    //         let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
-    //         fetch(url).then((res) => res.json()).then((resp) => {
-    //             Notiflix.Notify.Success(resp.message)
-    //             window.location.reload()
-    //         })
-    //     } else { Notiflix.Notify.Failure('Please enter correct email') }
-    // }
+    subscrib = () => {
+        const { subsc } = this.state;
+        console.log(this.captchaEnter.value,"asdas")
+        if (this.state.EmailRegex.test(subsc)) {
+            if(this.captchaEnter.value != ''){
+                let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
+                fetch(url).then((res) => res.json()).then((resp) => {
+                    Notiflix.Notify.Success(resp.message)
+                    window.location.reload()
+                })
+            }else{  Notiflix.Notify.Failure('Please enter captcha') }
+        } else { Notiflix.Notify.Failure('Please enter correct email') }
+    }
 
     getOurPartner = () => {
         let url = `${AppConfig.AppUrl}client`
@@ -195,6 +210,24 @@ class Dashboard extends Component {
         }
     }
 
+    handleClickCheck(e){
+        e.preventDefault();
+        this.check()
+    }
+
+    result(text) {
+        this.setState({
+          captcha: text
+        })
+      }
+
+    check() {
+        console.log(this.state.captcha, this.captchaEnter.value, this.state.captcha === this.captchaEnter.value)
+        if(this.state.captcha != this.captchaEnter.value){
+           window.location.reload();
+        }
+      }
+
 
     render() {
         return (
@@ -229,13 +262,12 @@ class Dashboard extends Component {
                                         ))}
                                     </div>
                                     <div className="social_ mt-4">
-                                        {/* <input className="input_mail" type="email" placeholder="your email address"
+                                        <input className="input_mail" type="email" placeholder="your email address"
                                             value={this.state.subsc}
                                             onChange={this.handleInputChange}
                                             name />
-                                        <button onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button> */}
-
-                                        <Mailchimp className="social_mailchip mt-4"
+                                        <button disabled={this.state.btnDisable} onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
+                                        {/* <Mailchimp className="social_mailchip mt-4"
                                             action='https://<YOUR-USER>.us16.list-manage.com/subscribe/post?u=XXXXXXXXXXXXX&amp;id=XXXXXX'
                                             fields={[
                                                 {
@@ -245,9 +277,18 @@ class Dashboard extends Component {
                                                     required: true
                                                 }
                                             ]}
-                                        />
+                                        /> */}
                                     </div>
                                 </Router>
+                                <div className='captcha'>
+                                    
+                                    <RCG style={this.display} result={this.result} />
+                                
+                                    <form className="social_  capt_ " onSubmit={this.handleClick}>
+                                        <input type='text' className="input_mail" ref={ref => this.captchaEnter = ref} />
+                                        <input className="btn nav_btn capbtn_" type='submit' placeholder="Captcha" />
+                                    </form>
+                                </div>
                             </div>
                             <div class="col-md-4 col-xs-12">
                                 <div class="banner_img">
@@ -480,3 +521,5 @@ class Dashboard extends Component {
 
 
 export default Dashboard;
+
+// "homepage": "http://gowebdesign.in/swaprex_r/",
