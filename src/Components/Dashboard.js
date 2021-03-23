@@ -12,6 +12,9 @@ import moment from 'moment'
 import SimpleImageSlider from "react-simple-image-slider";
 import Mailchimp from 'react-mailchimp-form';
 import RCG from 'react-captcha-generator';
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
+import { Button } from 'bootstrap';
 
 class Dashboard extends Component {
 
@@ -34,6 +37,7 @@ class Dashboard extends Component {
             btnDisable:true,
             captcha: '',
             EmailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            modalOpen: false
         }
         this.check = this.check.bind(this)
         this.result = this.result.bind(this)
@@ -153,16 +157,14 @@ class Dashboard extends Component {
 
     subscrib = () => {
         const { subsc } = this.state;
-        console.log(this.captchaEnter.value,"asdas")
-        if (this.state.EmailRegex.test(subsc)) {
-            if(this.captchaEnter.value != ''){
-                let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
-                fetch(url).then((res) => res.json()).then((resp) => {
-                    Notiflix.Notify.Success(resp.message)
-                    window.location.reload()
+        // console.log(this.captchaEnter.value,"asdas")
+        if (this.state.subsc != '') {
+            if (this.state.EmailRegex.test(subsc)) {
+                this.setState({
+                    modalOpen: true
                 })
-            }else{  Notiflix.Notify.Failure('Please enter captcha') }
-        } else { Notiflix.Notify.Failure('Please enter correct email') }
+            } else { Notiflix.Notify.Failure('Please enter correct email') }
+        } else { Notiflix.Notify.Failure('Please enter email') }
     }
 
     getOurPartner = () => {
@@ -222,10 +224,20 @@ class Dashboard extends Component {
       }
 
     check() {
+        const { subsc } = this.state;
         console.log(this.state.captcha, this.captchaEnter.value, this.state.captcha === this.captchaEnter.value)
-        if(this.state.captcha != this.captchaEnter.value){
-           window.location.reload();
+        if(this.state.captcha === this.captchaEnter.value){
+            let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
+                fetch(url).then((res) => res.json()).then((resp) => {
+                    Notiflix.Notify.Success(resp.message)
+                    window.location.reload()
+                })
+        } else {
+            window.location.reload();
         }
+        // if(this.state.captcha != this.captchaEnter.value){
+        // //    window.location.reload();
+        // }
       }
 
 
@@ -266,7 +278,20 @@ class Dashboard extends Component {
                                             value={this.state.subsc}
                                             onChange={this.handleInputChange}
                                             name />
-                                        <button disabled={this.state.btnDisable} onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
+                                        <button 
+                                        // disabled={this.state.btnDisable}
+                                         onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
+                                        <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen:false})} class="modal-content ">
+                                            <div style={{ height: 200, width: 410}}>
+                                                <div className='captcha'>
+                                                    <RCG style={this.display} result={this.result} />
+                                                    <form className="social_  capt_ " onSubmit={this.handleClick}>
+                                                        <input type='text' placeholder="Enter captcha" className="input_mail" ref={ref => this.captchaEnter = ref} /><br />
+                                                        <input style={{marginTop:10}} className="btn nav_btn capbtn_" type='submit' />
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </Modal>
                                         {/* <Mailchimp className="social_mailchip mt-4"
                                             action='https://<YOUR-USER>.us16.list-manage.com/subscribe/post?u=XXXXXXXXXXXXX&amp;id=XXXXXX'
                                             fields={[
@@ -280,15 +305,7 @@ class Dashboard extends Component {
                                         /> */}
                                     </div>
                                 </Router>
-                                <div className='captcha'>
-                                    
-                                    <RCG style={this.display} result={this.result} />
-                                
-                                    <form className="social_  capt_ " onSubmit={this.handleClick}>
-                                        <input type='text' className="input_mail" ref={ref => this.captchaEnter = ref} />
-                                        <input className="btn nav_btn capbtn_" type='submit' placeholder="Captcha" />
-                                    </form>
-                                </div>
+                              
                             </div>
                             <div class="col-md-4 col-xs-12">
                                 <div class="banner_img">
