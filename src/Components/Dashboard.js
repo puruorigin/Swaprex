@@ -226,7 +226,7 @@ class Dashboard extends Component {
         })
       }
 
-    check() {
+    check(text) {
         const { subsc } = this.state;
         // console.log(this.state.captcha, this.captchaEnter.value, this.state.captcha === this.captchaEnter.value)
             if(this.state.captcha === this.captchaEnter.value){
@@ -236,7 +236,9 @@ class Dashboard extends Component {
                         window.location.reload()
                     })
             } else {
-                window.location.reload();
+                Notiflix.Notify.Failure('Captcha mismatched')
+                // window.location.reload();
+                //this.result = this.result.bind(this)
             }
         // if(this.state.captcha != this.captchaEnter.value){
         // //    window.location.reload();
