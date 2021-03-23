@@ -73,7 +73,7 @@ class Dashboard extends Component {
     getSocialLink = () => {
         let url = `${AppConfig.AppUrl}sharing`
         fetch(url).then((res) => res.json()).then((res) =>{
-            console.log(res,"<social link")
+            // console.log(res,"<social link")
             this.setState({
                 sharing:res.data
             })
@@ -103,7 +103,7 @@ class Dashboard extends Component {
     getServices = () => {
         let url = `${AppConfig.AppUrl}services`
         fetch(url).then((res) => res.json()).then((resp) => {
-            console.log(resp,"services=========")
+            // console.log(resp,"services=========")
             this.setState({
                 services: resp.data
             })
@@ -213,8 +213,11 @@ class Dashboard extends Component {
     }
 
     handleClickCheck(e){
-        e.preventDefault();
-        this.check()
+        // console.log(this.captchaEnter.value)
+        if(this.captchaEnter.value != ''){
+            e.preventDefault();
+            this.check()
+        }else{Notiflix.Notify.Failure("Please enter captcha")}
     }
 
     result(text) {
@@ -225,16 +228,16 @@ class Dashboard extends Component {
 
     check() {
         const { subsc } = this.state;
-        console.log(this.state.captcha, this.captchaEnter.value, this.state.captcha === this.captchaEnter.value)
-        if(this.state.captcha === this.captchaEnter.value){
-            let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
-                fetch(url).then((res) => res.json()).then((resp) => {
-                    Notiflix.Notify.Success(resp.message)
-                    window.location.reload()
-                })
-        } else {
-            window.location.reload();
-        }
+        // console.log(this.state.captcha, this.captchaEnter.value, this.state.captcha === this.captchaEnter.value)
+            if(this.state.captcha === this.captchaEnter.value){
+                let url = `${AppConfig.AppUrl}subscription?email_id=${subsc}`
+                    fetch(url).then((res) => res.json()).then((resp) => {
+                        Notiflix.Notify.Success(resp.message)
+                        window.location.reload()
+                    })
+            } else {
+                window.location.reload();
+            }
         // if(this.state.captcha != this.captchaEnter.value){
         // //    window.location.reload();
         // }
@@ -253,7 +256,7 @@ class Dashboard extends Component {
                                 <div className="banner txt">
                                     <div className="banner_descrp">
                                         {this.state.titleHead.map((item, index) => (
-                                            <h2>
+                                            <h2 key={item.id}>
                                                 {item.title}
                                             </h2>
                                         ))}
@@ -268,7 +271,7 @@ class Dashboard extends Component {
                                     </div>
                                     <div className="social_ mt-4">
                                         {this.state.buttonLink.map((item, index) => (
-                                            <div>
+                                            <div key={item.id}>
                                                 <Link className="btn btn_started" onClick={() => window.open(item.menu_url)}>{item.menu_title}</Link>
                                             </div>
                                         ))}
@@ -285,10 +288,10 @@ class Dashboard extends Component {
                                             <div style={{ height: 200, width: 410}}>
                                                 <div className='captcha'>
                                                     <RCG style={this.display} result={this.result} />
-                                                    <form className="social_  capt_ " onSubmit={this.handleClick}>
+                                                    <div className="social_  capt_ " >
                                                         <input type='text' placeholder="Enter captcha" className="input_mail" ref={ref => this.captchaEnter = ref} /><br />
-                                                        <input style={{marginTop:10}} className="btn nav_btn capbtn_" type='submit' />
-                                                    </form>
+                                                        <button style={{marginTop:10}} className="btn nav_btn capbtn_" onClick={this.handleClick}> Submit</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Modal>
