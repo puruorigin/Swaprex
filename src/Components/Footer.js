@@ -49,7 +49,8 @@ class Footer extends Component {
                         <div className="container-fluid">
                             <div className="row" style={{ padding: 22, backgroundColor: '#6495ed' }}>
                                 <div className="col-md-6">
-                                    <h6 className="foter_txt text-white">  © 2021 Swaprex </h6>
+                                <Link className="navbar-brand" href="#"><img src="Asssets/image/ll.png" /> </Link>
+                                    {/* <h6 className="foter_txt text-white">  © 2021 Swaprex </h6> */}
                                 </div>
                                 <div className="col-md-6">
                                     <div className="foter_middle">

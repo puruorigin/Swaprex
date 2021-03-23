@@ -164,7 +164,7 @@ class Dashboard extends Component {
                     modalOpen: true
                 })
             } else { Notiflix.Notify.Failure('Please enter correct email') }
-        } else { Notiflix.Notify.Failure('Please enter captcha') }
+        } else { Notiflix.Notify.Failure('Please enter email') }
     }
 
     getOurPartner = () => {
@@ -281,13 +281,13 @@ class Dashboard extends Component {
                                         <button 
                                         // disabled={this.state.btnDisable}
                                          onClick={this.subscrib.bind(this)} className="btn nav_btn">subscribe</button>
-                                        <Modal open={this.state.modalOpen} class="modal-content ">
-                                            <div style={{ height: 200, width: 400}}>
+                                        <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen:false})} class="modal-content ">
+                                            <div style={{ height: 200, width: 410}}>
                                                 <div className='captcha'>
                                                     <RCG style={this.display} result={this.result} />
                                                     <form className="social_  capt_ " onSubmit={this.handleClick}>
-                                                        <input type='text' className="input_mail" ref={ref => this.captchaEnter = ref} />
-                                                        <input className="btn nav_btn capbtn_" type='submit' placeholder="Captcha" />
+                                                        <input type='text' placeholder="Enter captcha" className="input_mail" ref={ref => this.captchaEnter = ref} /><br />
+                                                        <input style={{marginTop:10}} className="btn nav_btn capbtn_" type='submit ' placeholder="Captcha" />
                                                     </form>
                                                 </div>
                                             </div>

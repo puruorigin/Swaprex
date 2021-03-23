@@ -121,10 +121,14 @@ span.para_det {
     display: block;
 }
 form.social_.capt_ input {
-    width: 15%;
+    width: 49%;
 }
 input.btn.nav_btn.capbtn_ {
     width: 0%;
+}
+.capbtn_::placeholder {
+    font-size: 11px;
+    color: #fff;
 }
 /*============================banner end====================================*/
 
@@ -469,7 +473,10 @@ color: #76767a;
     width: 200px; */
 }
 
-
+.img_txt a img {
+    max-width: 230px;
+    max-height: 124px;
+}
 
 /*=======================footer==========================*/
 
@@ -477,6 +484,7 @@ color: #76767a;
     justify-content: center;
 }
 .foter_middle{
+    margin-top: 20px;
    text-align: end;
 }
 .foter_txt{text-align: initial;}
