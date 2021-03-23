@@ -287,7 +287,7 @@ class Dashboard extends Component {
                                                     <RCG style={this.display} result={this.result} />
                                                     <form className="social_  capt_ " onSubmit={this.handleClick}>
                                                         <input type='text' placeholder="Enter captcha" className="input_mail" ref={ref => this.captchaEnter = ref} /><br />
-                                                        <input style={{marginTop:10}} className="btn nav_btn capbtn_" type='submit ' placeholder="Captcha" />
+                                                        <input style={{marginTop:10}} className="btn nav_btn capbtn_" type='submit' />
                                                     </form>
                                                 </div>
                                             </div>
