@@ -45,6 +45,8 @@ class Header extends Component {
                                             <Link className="nav-link" onClick={() =>  window.open(item.menu_url)}><h3 className="menuBlink">{item.menu_title}</h3></Link>
                                         </li>
                                         ))}
+                                        <button className="iconbtn">Get SWX <img src="Asssets/image/horse.png"> 
+                                        </img> </button>
                                         {/* <li className="nav-item ">
                                             <Link className="nav-link" href="#">News</Link>
                                         </li>
