@@ -54,7 +54,7 @@ class Footer extends Component {
                                 <div className="col-md-6">
                                     <div className="foter_middle">
                                         {this.state.socialLink.map((item, index) =>(
-                                        <Link onClick={() => window.open(item.url)} className="text-white " href>{item.title} </Link>
+                                        <Link key={item.id} to="#" className="socialink text-white"> <i style={{fontSize:26}} className={`${item.logo}`} aria-hidden="true" /></Link>
                                         ))}
                                     </div>
                                 </div>
