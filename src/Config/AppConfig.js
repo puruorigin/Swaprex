@@ -1,3 +1,3 @@
 export const AppConfig = {
-    AppUrl :'https://gowebdesign.in/swaprexadmin/app/'
+    AppUrl :'http://swaprex.com/admin/app/'
 }
