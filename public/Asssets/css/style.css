@@ -72,13 +72,18 @@ span.para_det {
     font-style: italic;
 }
 .socialink {
-    /*background-color: #6495ed;*/
+    background-color: #5a5a9d;
     margin: 0 20px;
-    font-size: 37px;
+    font-size: 1rem;
+    border-radius: 28px;
+    padding: 12px;
+    line-height: 34px;
 }
+
 .btn_started{
     font-size: 12px !important;
     font-weight: 700;
+    margin-right: 10px;;
     text-transform: uppercase;
     line-height: 33px;
     width: 8.75rem;
@@ -499,14 +504,19 @@ color: #76767a;
 }
 
 /*=======================footer==========================*/
-
+.foter_para {
+    text-align: justify;
+    font-size: 15px;
+}
 .foter_rigt {
     justify-content: center;
 }
 .foter_middle{
    text-align: end;
 }
-.foter_txt{text-align: initial;}
+.foter_txt{text-align: initial;
+    font-size: 19px;
+    font-weight: 800;}
 .after_line::after{
     border-left: 1px solid;
     content: "";
