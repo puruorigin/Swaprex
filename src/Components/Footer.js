@@ -47,14 +47,14 @@ class Footer extends Component {
                     {/*==================== fotter start =========================*/}
                     <footer>
                         <div className="container-fluid">
-                            <div className="row" style={{ padding: 22, backgroundColor: '#6495ed' }}>
+                            <div className="row" style={{ padding: 12, backgroundColor: '#6495ed' }}>
                                 <div className="col-md-6">
                                     <h6 className="foter_txt text-white">  Swaprex </h6>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="foter_middle">
                                         {this.state.socialLink.map((item, index) =>(
-                                        <Link key={item.id} to="#" className="socialink text-white"> <i style={{fontSize:26}} className={`${item.logo}`} aria-hidden="true" /></Link>
+                                        <Link key={item.id} to="#" className="socialink text-white"> <i style={{fontSize:20}} className={`${item.logo}`} aria-hidden="true" /></Link>
                                         ))}
                                     </div>
                                 </div>
