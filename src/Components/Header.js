@@ -34,7 +34,7 @@ class Header extends Component {
                     <div className="col-md-12">
                         <Router>
                             <nav className="navbar navbar-expand-lg navbar-light">
-                                <Link className="navbar-brand" href="#"><img src="Asssets/image/ll.png" /> </Link>
+                                <Link className="navbar-brand" href="#"><img alt="logo" src="Asssets/image/ll.png" /> </Link>
                                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon" />
                                 </button>

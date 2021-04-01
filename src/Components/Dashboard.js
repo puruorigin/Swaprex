@@ -93,7 +93,7 @@ class Dashboard extends Component {
     getSomthing = () => {
         let url = `${AppConfig.AppUrl}feature`
         fetch(url).then((resp) => resp.json()).then((res) => {
-            // console.log(res.data,"asdada===========")
+            // console.log(res.data,"asdada===========>>>>>", url)
             this.setState({
                 features: res.data
             })
@@ -158,7 +158,7 @@ class Dashboard extends Component {
     subscrib = () => {
         const { subsc } = this.state;
         // console.log(this.captchaEnter.value,"asdas")
-        if (this.state.subsc != '') {
+        if (this.state.subsc !== '') {
             if (this.state.EmailRegex.test(subsc)) {
                 this.setState({
                     modalOpen: true
@@ -214,7 +214,7 @@ class Dashboard extends Component {
 
     handleClickCheck(e){
         // console.log(this.captchaEnter.value)
-        if(this.captchaEnter.value != ''){
+        if(this.captchaEnter.value !== ''){
             e.preventDefault();
             this.check()
         }else{Notiflix.Notify.Failure("Please enter captcha")}
@@ -271,11 +271,11 @@ class Dashboard extends Component {
                                                 <Link key={item.id} to="#" className="socialink text-primary"> <i className={`${item.logo}`} aria-hidden="true" /></Link>
                                         ))}
                                     </div>
-                                    <div className="social_ mt-4">
+                                    <div className="social_ mt-4 ">
                                         {this.state.buttonLink.map((item, index) => (
-                                            <div key={item.id}>
+                                        
                                                 <Link className="btn btn_started" onClick={() => window.open(item.menu_url)}>{item.menu_title}</Link>
-                                            </div>
+                                        
                                         ))}
                                     </div>
                                     <div className="social_ mt-4">
@@ -359,6 +359,7 @@ class Dashboard extends Component {
                         <div className="row">
                             <div className="col-md-12 col-xs-12 ">
                                 <div className="heading_">
+                                
                                     <h1>What Can Swaprex Do ?</h1>
                                 </div>
                             </div>
@@ -375,7 +376,7 @@ class Dashboard extends Component {
                                                     </div>
                                                 </div>
                                             )}
-                                            {item.image != null && (
+                                            {item.image !== null && (
                                                 <div className="col-sm-2">
                                                     <div className="img_txt">
                                                         <img style={{ height: 280 }} class="img-fluid" src={item.image} />
@@ -541,7 +542,6 @@ class Dashboard extends Component {
         );
     }
 }
-
 
 export default Dashboard;
 
