@@ -31,13 +31,13 @@ class Dashboard extends Component {
             titleHead: [],
             buttonLink: [],
             showHide: true,
-            imagesP: [],
             socialLink: [],
             sharing:[],
             btnDisable:true,
             captcha: '',
             EmailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            modalOpen: false
+            modalOpen: false,
+            show:true
         }
         this.check = this.check.bind(this)
         this.result = this.result.bind(this)
@@ -170,17 +170,17 @@ class Dashboard extends Component {
     getOurPartner = () => {
         let url = `${AppConfig.AppUrl}client`
         fetch(url).then((res) => res.json()).then((resp) => {
-            // console.log(resp.data,"<====== our partner")
-            let arr = []
-            resp.data.forEach(a => {
-                // console.log(a.image,"<====================")
-                arr.push({ url: a.image })
-            })
-            // console.log(arr,"<===-----------")
-            this.setState({
-                imagesP: arr,
-                OurPartner: resp.data
-            })
+            let data = resp.data
+            console.log(data.length,"<====== our partner")
+            if(data.length == 0){
+                this.setState({
+                    show:false
+                })
+            }else {
+                this.setState({
+                    OurPartner: resp.data
+                })
+            }
 
         })
     }
@@ -505,15 +505,20 @@ class Dashboard extends Component {
                     {/*====================================== FAQ end ======================================*/}
                     {/*============================ our partner===================================  */}
                     {/*=================== our partner end ===========================*/}
-                    <section className="secbody">
-                        <div className="row">
-                            <div className="col-md-12 col-xs-12 ">
-                                <div className="heading_">
-                                    <h1>Our Partner &amp; Supporters</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    {!this.state.show && (
+                        <div></div>
+                    )}
+                    {this.state.show && (
+                         <section className="secbody">
+                         <div className="row">
+                             <div className="col-md-12 col-xs-12 ">
+                                 <div className="heading_">
+                                     <h1>Our Partner &amp; Supporters</h1>
+                                 </div>
+                             </div>
+                         </div>
+                     </section>
+                    )}
                 </div>
                 <div className="col-md-12 col-xs-12 d-flex justify-content-center">
                     <OwlCarousel responsive={{
